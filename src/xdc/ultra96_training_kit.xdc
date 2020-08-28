@@ -48,6 +48,11 @@ set_property PACKAGE_PIN C7   [get_ports {pmod_b[5]               }];  # "C7.HD_
 set_property PACKAGE_PIN B6   [get_ports {pmod_b[6]               }];  # "B6.HD_GPIO_14"
 set_property PACKAGE_PIN C5   [get_ports {pmod_b[7]               }];  # "C5.HD_GPIO_15"
 
+#BT_HCI_RTS on FPGA /  emio_uart0_ctsn connect to 
+set_property PACKAGE_PIN B7 [get_ports BT_ctsn]
+#BT_HCI_CTS on FPGA / emio_uart0_rtsn
+set_property PACKAGE_PIN B5 [get_ports BT_rtsn]
+
 # ----------------------------------------------------------------------------
 #
 # IOSTANDARD Constraints
@@ -59,3 +64,6 @@ set_property IOSTANDARD LVCMOS18 [get_ports -of_objects [get_iobanks 26]];
 
 # Set the bank voltage for IO Bank 65 to 1.2V
 set_property IOSTANDARD LVCMOS12 [get_ports -of_objects [get_iobanks 65]];
+
+# Set the voltage for BT* to 1.8V
+set_property IOSTANDARD LVCMOS18 [get_ports BT*]
