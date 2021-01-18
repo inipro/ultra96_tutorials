@@ -7,7 +7,5 @@ iface lo inet loopback
 # Wireless interfaces
 auto wlan0
 iface wlan0 inet dhcp
-        wireless_mode managed
-        wireless_essid any
-        wpa-driver wext
+        wpa-driver nl80211
         wpa-conf /etc/wpa_supplicant.conf

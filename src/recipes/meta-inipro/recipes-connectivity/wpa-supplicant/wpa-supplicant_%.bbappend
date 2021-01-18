@@ -1,3 +1,7 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
-SRC_URI += "file://wpa_supplicant.conf-sane"
+do_install_prepend () {
+    if [ "$ULTRA96_VERSION" = "2" ]; then
+        sed -i 's/^\(Exec=.*\)$/#\1/g' ${S}/wpa_supplicant/dbus/fi.w1.wpa_supplicant1.service
+    fi
+}
