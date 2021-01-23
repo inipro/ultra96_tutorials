@@ -14,7 +14,7 @@ static ssize_t pmod8ld_bits_show(struct device *dev,
 				struct device_attribute *attr, char *buf)
 {
 	struct pmod8ld *leds = dev_get_drvdata(dev);
-  struct gpio_array *array_info = NULL;
+	struct gpio_array *array_info = NULL;
   
 	unsigned long bits[8];
 
@@ -27,7 +27,7 @@ static ssize_t pmod8ld_bits_store(struct device *dev,
 	struct device_attribute *attr, const char *buf, size_t count)
 {
 	struct pmod8ld *leds = dev_get_drvdata(dev);
-  struct gpio_array *array_info = NULL;
+	struct gpio_array *array_info = NULL;
   
 	int ret;
 	unsigned long bits;
