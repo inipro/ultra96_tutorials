@@ -14,34 +14,28 @@ static ssize_t pmod8ld_bits_show(struct device *dev,
 				struct device_attribute *attr, char *buf)
 {
 	struct pmod8ld *leds = dev_get_drvdata(dev);
-	int val[8];
-	int i;
-	unsigned int bits;
-	gpiod_get_array_value_cansleep(8, leds->gpios->desc, val);
-	bits = 0;
-	for (i=0; i<8; i++) {
-		bits |= (val[i]&1) << i;
-	}
-	return sprintf(buf, "%d\n", bits);
+  struct gpio_array *array_info = NULL;
+  
+	unsigned long bits[8];
+
+	gpiod_get_array_value_cansleep(8, leds->gpios->desc, array_info, bits);
+
+	return sprintf(buf, "%lu\n", bits[0]);
 }
 
 static ssize_t pmod8ld_bits_store(struct device *dev, 
 	struct device_attribute *attr, const char *buf, size_t count)
 {
 	struct pmod8ld *leds = dev_get_drvdata(dev);
-	int val[8];
+  struct gpio_array *array_info = NULL;
+  
 	int ret;
-	int i;
-	unsigned int bits;
-
-	ret = kstrtouint(buf, 0, &bits);
+	unsigned long bits;
+	
+	ret = kstrtoul(buf, 0, &bits);
 	if (ret) return ret;
 
-	for (i=0; i<8; i++)
-		val[i] = (bits >> i) & 1;
-
-	gpiod_set_array_value_cansleep(8, leds->gpios->desc, val);
-
+	gpiod_set_array_value_cansleep(8, leds->gpios->desc, array_info, &bits);
 	return count;
 }
 				 
